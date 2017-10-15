@@ -15,8 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         // Override point for customization after application launch.
         return true
+    }
+
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        let vc = self.window?.rootViewController as! ViewController
+
+        API.shared.downloadBikeData { (success, bikes) in
+            if success {
+                print("BACKGROUND DOWNLOADED")
+                vc.loadBikes()
+                completionHandler(.newData)
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

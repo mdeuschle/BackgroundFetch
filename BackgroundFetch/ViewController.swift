@@ -12,8 +12,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+    }
 
+    func loadBikes() {
+        for bike in API.shared.bikes {
+            print("BIKE NAME: \(bike.stationName)")
+        }
     }
 
 }

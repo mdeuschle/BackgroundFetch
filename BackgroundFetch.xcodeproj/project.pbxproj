@@ -200,6 +200,11 @@
 					A82D84861F92EEA4008F9A8C = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					A82D849A1F92EEA4008F9A8C = {
 						CreatedOnToolsVersion = 9.0;
