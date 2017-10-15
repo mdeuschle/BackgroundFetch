@@ -9,5 +9,13 @@
 import Foundation
 
 struct Bike {
-    
+
+    let stationName: String
+
+    init?(bikeDic: [String: Any]) {
+        guard let name = bikeDic["stationName"] as? String else {
+            return nil
+        }
+        self.stationName = name
+    }
 }
