@@ -28,7 +28,7 @@ class API {
                                     self.bikes.append(bike)
                                 }
                             }
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateTable"), object: nil)
+//                            NotificationCenter.default.post(name: UPDATE_TABLE, object: nil)
                             handler(true, self.bikes)
                         }
                     } else {

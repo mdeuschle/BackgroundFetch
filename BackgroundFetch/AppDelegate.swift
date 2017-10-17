@@ -13,23 +13,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    private let tabBarController = TabBarController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         // Override point for customization after application launch.
+        configureWindow()
         return true
     }
 
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        let vc = self.window?.rootViewController as! ViewController
+    private func configureWindow() {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = tabBarController
+        window.makeKeyAndVisible()
+        self.window = window
+    }
 
-        API.shared.downloadBikeData { (success, bikes) in
-            if success {
-                print("BACKGROUND DOWNLOADED")
-                vc.loadBikes()
-                completionHandler(.newData)
-            }
-        }
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        tabBarController.backgroundFetch()
+//        let vc = self.window?.rootViewController as! ViewController
+//        vc.callAPI(completionHandler: completionHandler)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -47,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+            print("\(API.shared.bikes)")
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
